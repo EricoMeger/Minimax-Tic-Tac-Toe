@@ -1,7 +1,5 @@
 class Minimax():
     def __init__(self):
-        self.maiorScore = -1000
-        self.menorScore = 1000
         self.linhas = 0
         self.melhorJogada = None
         self.tabuleiro = None
