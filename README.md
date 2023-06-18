@@ -1,2 +1,4 @@
 # Minimax-Tic-Tac-Toe
-Tic-Tac-Toe game made in Python with custom sizes, minimax only works on 3x3 tho, alpha-beta pruning is a todo.
+A Tic-Tac-Toe game on the terminal made with Python. The game was created as an assessment for the Introduction to Programming course in college.
+
+Alpha-beta pruning is still a todo, so it only works on a 3x3 board. However, you can play with another human on any size you want.
