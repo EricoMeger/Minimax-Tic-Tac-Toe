@@ -7,21 +7,26 @@ class Minimax():
         self.IA = None
         self.humano = None
 
-    def getInfo(self, tabuleiro, jogador, linhas):
+    def getInfo(self, tabuleiro, jogador, linhas, escolha):
         self.IA = jogador
         self.humano = 'O' if self.IA == 'X' else 'X'
         self.tabuleiro = tabuleiro
         self.linhas = linhas
 
-        self.minimax(self.IA, 0)
-        print(self.melhorJogada)
+
+        if escolha == '1':
+            print("modo fácil selecionado")
+            self.minimaxEasy(self.IA)
+        else:
+            self.minimax(self.IA)
+            
         return self.melhorJogada
 
-    def minimax(self, jogador, profundidade):
+    def minimax(self, jogador):
         if self.checkVitoria(self.IA):
-            return 10 - profundidade
+            return 10 
         elif self.checkVitoria(self.humano):
-            return -10 + profundidade
+            return -10 
         elif self.checkEmpate():
             return 0
 
@@ -38,12 +43,51 @@ class Minimax():
                     self.tabuleiro[i][j] = jogador
                     
                     if jogador == self.IA:
-                        pontuacao = self.minimax(self.humano, profundidade + 1)
+                        pontuacao = self.minimax(self.humano)
                         if pontuacao > melhorPontuacao:
                             melhorPontuacao = pontuacao
                             melhorJogada = [i, j]
                     else:
-                        pontuacao = self.minimax(self.IA, profundidade + 1)
+                        pontuacao = self.minimax(self.IA)
+                        if pontuacao < melhorPontuacao:
+                            melhorPontuacao = pontuacao
+                            melhorJogada = [i, j]
+
+                    self.tabuleiro[i][j] = '_'
+
+        if melhorJogada != None:
+            self.melhorJogada = melhorJogada
+
+        return melhorPontuacao
+    
+    #minimax q nao funciona reaproveitado =)
+    def minimaxEasy(self, jogador):
+        if self.checkVitoria(jogador) and jogador == self.IA:
+            return 10 
+        elif self.checkVitoria(jogador) and jogador == self.humano:
+            return -10 
+        elif self.checkEmpate():
+            return 0
+
+        if jogador == self.IA:
+            melhorPontuacao = -1000
+        else:
+            melhorPontuacao = 1000
+
+        melhorJogada = None
+
+        for i in range(self.linhas):
+            for j in range(self.linhas):
+                if self.tabuleiro[i][j] == '_':
+                    self.tabuleiro[i][j] = jogador
+                    
+                    if jogador == self.IA:
+                        pontuacao = self.minimaxEasy(self.humano)
+                        if pontuacao > melhorPontuacao:
+                            melhorPontuacao = pontuacao
+                            melhorJogada = [i, j]
+                    else:
+                        pontuacao = self.minimaxEasy(self.IA)
                         if pontuacao < melhorPontuacao:
                             melhorPontuacao = pontuacao
                             melhorJogada = [i, j]

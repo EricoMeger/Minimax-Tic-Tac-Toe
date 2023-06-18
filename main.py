@@ -108,6 +108,9 @@ class JogoVelha():
         if escolha == '2' and self.linhas > 3:
             print("Desculpe! Limitamos a jogada contra IA para 3x3.")
             quit()
+        
+        elif escolha == '2':
+            dificuldade = self.janela.IAChoiceScreen()
 
         sinal = input("Jogador 1 deseja ser X ou O? ")
         self.clearTerminal() 
@@ -129,7 +132,7 @@ class JogoVelha():
                 if escolha == '1': 
                     jogada = input(f"{jogador}, em qual posição você deseja marcar? ")
                 else:
-                    jogada = self.minimax.getInfo(self.tabuleiro, self.jogador2, self.linhas)
+                    jogada = self.minimax.getInfo(self.tabuleiro, self.jogador2, self.linhas, dificuldade)
                     self.vezIA = True
                   
             self.marcaJogada(jogada, jogador)
